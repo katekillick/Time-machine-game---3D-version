@@ -43,18 +43,7 @@
     
      if (Input.GetKeyDown("s")) { //speedy reset code for experimenting!
      	
-     	stopRecording();
-     	
-     	//loop through and destroy the ghosts
- 	 	for (var i = 0; i<roundNumber; i++) { //loop through the ghosts
-	 		Destroy(ghosts[i]); //destroy ghost
-	 	}
-     	
-     	//reset round number
-     	roundNumber = 0;
-     	transform.position = startPosition;
-     	
-     	startRecording();
+     	resetGame();
      }
     
     
@@ -145,5 +134,21 @@
  
  function isGrounded(): boolean { //function to find out if the player is on the ground / a surface
    return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1); //raycast to detect surface
+ }
+ 
+ function resetGame() {
+ 
+     	stopRecording();
+     	
+     	//loop through and destroy the ghosts
+ 	 	for (var i = 0; i<roundNumber; i++) { //loop through the ghosts
+	 		Destroy(ghosts[i]); //destroy ghost
+	 	}
+     	
+     	//reset round number
+     	roundNumber = 0;
+     	transform.position = startPosition;
+     	
+     	startRecording();
  }
  
