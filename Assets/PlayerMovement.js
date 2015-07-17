@@ -23,12 +23,18 @@
  
     if (Input.GetKeyDown("a")) { //the input key for starting/ending recording the player movement
     	
-    	if (recording) { 
-    		stopRecording();
-		}
-		else {
-			startRecording();
-		}
+    	
+    	//USE THIS CODE FOR "A" TO STOP & START RECORDING
+    	//if (recording) { 
+    	//	stopRecording();
+		//}
+		//else {
+		//	startRecording();
+		//}
+		
+		//USE THIS CODE FOR "A" TO JUST START A NEW LOAD OF GHOSTS
+		stopRecording();
+		startRecording();
     }
     
     if (recording) { //if we are in the state of recording player movements...
