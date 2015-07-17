@@ -64,6 +64,7 @@
  
  function startRecording() { //start recording player movements
 	 Debug.Log("start recording");
+	 startPosition = transform.position; //record the starting position for the rest of the game
 	 recording=true;
  }
  
@@ -103,7 +104,6 @@
  
  
  function Start() {
-	 startPosition = transform.position; //record the starting position for the rest of the game
 	 distToGround = GetComponent.<Collider>().bounds.extents.y; //set the object height for raycasting later
  }
  
