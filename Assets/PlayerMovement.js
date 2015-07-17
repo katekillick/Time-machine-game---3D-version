@@ -27,7 +27,7 @@
  function Update() {
     /* grounded = Physics2D.OverlapArea(top_left.GetComponent.<Transfposition, bottom_right.position, ground_layers);   */
     
-    if (Input.GetKeyDown("space")) {
+    if (Input.GetKeyDown("a")) {
     	
     	if (recording) { 
     		stopRecording();
@@ -39,10 +39,10 @@
     
     if (recording) {
     
-	    var move = Vector3(Input.GetAxis("Horizontal"), 0);
+	    var move = Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 	    transform.position += move * speed * Time.deltaTime; 
 	    
-	    if (Input.GetKeyDown("up") && jumpCounter>jumpDelay) {
+	    if (Input.GetKeyDown("space") && jumpCounter>jumpDelay) {
 		    GetComponent.<Rigidbody2D>().AddForce (new Vector2(0, jumpForce));
 		    jumpCounter=0;
 	    }
