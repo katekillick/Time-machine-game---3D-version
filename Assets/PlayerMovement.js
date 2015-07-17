@@ -16,6 +16,8 @@
  var playerRecord : Array = new Array(); //will store the player's movements each round
  var ghosts = new GameObject[99]; //will contain the list of ghost objects
  
+ var distToGround: float; //used for raycasting in jump script
+ 
  
  function Update() {
  
@@ -36,8 +38,8 @@
 	    transform.position += move * speed * Time.deltaTime; 
 	    
 	    //let the player jump - v hacky right now!
-	    if (Input.GetKeyDown("space") && jumpCounter>jumpDelay) {
-		    GetComponent.<Rigidbody2D>().AddForce (new Vector2(0, jumpForce));
+	    if (Input.GetKeyDown("space") && isGrounded()) {
+		    GetComponent.<Rigidbody>().AddForce (new Vector2(0, jumpForce));
 		    jumpCounter=0;
 	    }
 	    
@@ -79,7 +81,7 @@
  	//instantiate a new ghost object
  	var newGhost:GameObject = Instantiate(ghostPrefab, startPosition, Quaternion.identity);
  	
- 	//assign the record of the round the player just played to this ghost
+ 	//pass on the recorded player movements from this round into the PlayerGhost.js script
  	newGhost.GetComponent(PlayerGhost).ghostRecord = playerRecord.slice(0, playerRecord.length);	
  	
     //Debug.Log(ghosts);
@@ -87,7 +89,6 @@
  }
  
  function startGhosts() { //sets all the ghosts in motion
- 
  	for (var i = 0; i<roundNumber; i++) { //loop through the ghosts
  		Debug.Log("ghost" + i + " is starting playback");
  		ghosts[i].GetComponent(PlayerGhost).startingPlayback = true; //this sets off a function in the PlayerGhost.js script
@@ -97,5 +98,10 @@
  
  function Start() {
 	 startPosition = transform.position; //record the starting position for the rest of the game
+	 distToGround = GetComponent.<Collider>().bounds.extents.y; //set the object height for raycasting later
+ }
+ 
+ function isGrounded(): boolean { //function to find out if the player is on the ground / a surface
+   return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1); //raycast to detect surface
  }
  
