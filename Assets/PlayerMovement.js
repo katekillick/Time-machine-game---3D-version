@@ -18,7 +18,11 @@
  
  var distToGround: float; //used for raycasting in jump script
  
- 
+ //experimental game variables
+ var resetPlayerEveryGo : boolean = false; //if true, the player (and therefore all ghosts) will start in the same place each round
+ var giveGhostsRigidBodies : boolean = false; //if true, the ghosts will be affected by gravity when they finish moving
+ var ghostsPlayFullRecord : boolean = false; //if true, every ghost will replay all the player's movements FROM THE START
+
  function Update() {
  
     if (Input.GetKeyDown("a")) { //the input key for starting/ending recording the player movement
@@ -36,6 +40,25 @@
 		stopRecording();
 		startRecording();
     }
+    
+     if (Input.GetKeyDown("s")) { //speedy reset code for experimenting!
+     	
+     	stopRecording();
+     	
+     	//loop through and destroy the ghosts
+ 	 	for (var i = 0; i<roundNumber; i++) { //loop through the ghosts
+	 		Destroy(ghosts[i]); //destroy ghost
+	 	}
+     	
+     	//reset round number
+     	roundNumber = 0;
+     	transform.position = startPosition;
+     	
+     	startRecording();
+     }
+    
+    
+    
     
     if (recording) { //if we are in the state of recording player movements...
     
@@ -78,9 +101,11 @@
   	 roundNumber++; //increase which round we are on
  	 startGhosts(); //set the ghosts in motion
  	 
-	 playerRecord.Clear(); //clear the record of the player's movements ready for the next round
- 	
-   	roundCounter=0;
+ 	 if (!ghostsPlayFullRecord) { //experimental game variable
+		 playerRecord.Clear(); //clear the record of the player's movements ready for the next round
+	   	roundCounter=0;
+ 	 }
+ 
  	
  }
  
@@ -93,6 +118,16 @@
  	
     //Debug.Log(ghosts);
  	ghosts[roundNumber] = newGhost; //add the new ghost into the ghost array
+ 	
+ 	//experimental game variables
+ 	if (resetPlayerEveryGo) { //sets the player and every ghost back to the start point each round
+ 		transform.position = startPosition;
+ 	}
+ 	
+ 	if (giveGhostsRigidBodies) { //ghosts will have rigidbodies and sobe affected by gravity when they stop moving
+ 		newGhost.AddComponent.<Rigidbody>();
+ 	}
+ 	
  }
  
  function startGhosts() { //sets all the ghosts in motion
@@ -105,6 +140,7 @@
  
  function Start() {
 	 distToGround = GetComponent.<Collider>().bounds.extents.y; //set the object height for raycasting later
+	 startPosition = transform.position; //the starting position for the player/ghosts
  }
  
  function isGrounded(): boolean { //function to find out if the player is on the ground / a surface
