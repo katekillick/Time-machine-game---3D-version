@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerMovement.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/EndGoal.js">
     <Files>
-      <File FileName="Assets/PlayerMovement.js" Line="104" Column="61" />
+      <File FileName="Assets/PlayerMovement.js" Line="44" Column="49" />
       <File FileName="Assets/PlayerGhost.js" Line="23" Column="24" />
+      <File FileName="Assets/EndGoal.js" Line="20" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
